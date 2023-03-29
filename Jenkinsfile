@@ -79,7 +79,7 @@ pipeline{
             steps{
                 script{
                     echo "====++++executing Dependency Check++++===="
-                    sh 'mvn dependecy-check:check'
+                    sh 'mvn dependency-check:check'
                 }
             }
             post{
