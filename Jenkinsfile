@@ -57,6 +57,32 @@ pipeline{
                 }
             }
         }
+
+        stage('SonarQube - SAST'){
+            steps{
+                script{
+                  withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    sh 'mvn clean verify sonar:sonar'
+                  }  
+                }
+            }
+        }
+
+        // stage("Dependency Check"){
+        //     steps{
+        //         script{
+        //             echo "====++++executing Dependency Check++++===="
+        //             sh 'mvn dependecy-check:check'
+        //         }
+        //     }
+        //     post{
+        //         always{
+        //             echo "====++++always++++===="
+        //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //         }
+        
+        //     }
+        // }
     }
     post{
         always{
