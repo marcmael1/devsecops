@@ -19,7 +19,8 @@ pipeline{
             echo "======== Alerting Team ========"
             slackSend channel: '#jenkinscicd', 
                         color: COLOR_MAP[currentBuild.currentResult], 
-                        message: '"*${currentBuild.currentResult}:* Job ${env.BUILD_NAME} Build ${env.BUILD_ID}  \\n More infos at ${env.BUILD_URL}"', teamDomain: 'devsecops-gyr2101', 
+                        message: "*${currentBuild.currentResult}:* Job $JOB_NAME Build $BUILD_ID  \\n More infos at $BUILD_URL", 
+                        teamDomain: 'devsecops-gyr2101', 
                         tokenCredentialId: 'slack-token'
         }
     }
