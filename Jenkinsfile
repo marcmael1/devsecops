@@ -60,6 +60,7 @@ pipeline{
 
         stage('SonarQube - SAST'){
             steps{
+                echo "====++++  static code analysis++++===="
                 script{
                   withSonarQubeEnv(credentialsId: 'sonar-token') {
                     sh 'mvn clean verify sonar:sonar'
@@ -70,7 +71,7 @@ pipeline{
 
         stage('Quality Gates'){
             steps{
-                timeout(time: 1, unit: "MINUTES")
+                timeout(time: 2, unit: "MINUTES")
                 script{
                    waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token' 
                 }
