@@ -27,6 +27,22 @@ pipeline{
                 }
             }
         }
+        stage("Unit Test & Jacoco report"){
+            steps{
+                script{
+                     echo "====++++executing Unit Test & Jacoco report++++===="
+                     sh 'mvn test'
+                }
+            }
+            post{
+                always{
+                    echo "====++++ Publish report to jenkins UI++++===="
+                    junit "target/surefire-reports/*.xml"
+                    jacoco execPattern: "target/*.exec"
+
+                }
+            }
+        }
     }
     post{
         always{
