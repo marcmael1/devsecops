@@ -1,4 +1,4 @@
-def COLOR_MAR = [
+def COLOR_MAP = [
     "SUCCESS": "good"
     "FAILURE": "danger"
 ]
