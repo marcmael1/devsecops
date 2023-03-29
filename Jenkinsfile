@@ -13,6 +13,19 @@ pipeline{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/marcmael1/devsecops.git']])
             }
         }
+
+        stage('Maven Build'){
+            steps{
+                script{
+                    sh 'mvn clean install'
+                }
+            }
+            post{
+                success{
+                    echo "====++++ Archiving Artifact ++++===="
+                    archiveArtifacts artifacts: "**/*.jar"
+            }
+        }
     }
     post{
         always{
