@@ -75,21 +75,21 @@ pipeline{
             }
         }
 
-        // stage("Dependency Check"){
-        //     steps{
-        //         script{
-        //             echo "====++++executing Dependency Check++++===="
-        //             sh 'mvn dependecy-check:check'
-        //         }
-        //     }
-        //     post{
-        //         always{
-        //             echo "====++++always++++===="
-        //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        //         }
+        stage("Dependency Check"){
+            steps{
+                script{
+                    echo "====++++executing Dependency Check++++===="
+                    sh 'mvn dependecy-check:check'
+                }
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                }
         
-        //     }
-        // }
+            }
+        }
     }
     post{
         always{
