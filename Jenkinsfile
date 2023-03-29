@@ -24,6 +24,7 @@ pipeline{
                 success{
                     echo "====++++ Archiving Artifact ++++===="
                     archiveArtifacts artifacts: "**/*.jar"
+                }
             }
         }
     }
