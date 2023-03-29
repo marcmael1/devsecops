@@ -85,7 +85,7 @@ pipeline{
             post{
                 always{
                     echo "====++++always++++===="
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: '*target*/dependency-check-report.xml'
                 }
         
             }
