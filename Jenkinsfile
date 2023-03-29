@@ -68,6 +68,15 @@ pipeline{
             }
         }
 
+        stage('Quality Gates'){
+            steps{
+                timeout(time: 1, unit: "MINUTES")
+                script{
+                   waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token' 
+                }
+            }
+        }
+
         // stage("Dependency Check"){
         //     steps{
         //         script{
