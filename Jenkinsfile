@@ -51,7 +51,7 @@ pipeline{
                 always{
                     echo "====++++always++++===="
                     junit 'target/surfire-reports/*.xml'
-                    jacoco execPattern: 'target/*.exec'
+                    jacoco execPattern: 'target/jacoco.exec'
                 }
             }
         }
