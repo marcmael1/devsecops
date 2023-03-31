@@ -49,14 +49,21 @@ pipeline{
             }
         }
 
-        stage("Static Code Analysis - SAST"){
-            steps{
-                echo "====++++executing Static Code Analysis - SAST++++===="
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn clean verify sonar:sonar'
-                }
+        // stage("Static Code Analysis - SAST"){
+        //     steps{
+        //         echo "====++++executing Static Code Analysis - SAST++++===="
+        //         withSonarQubeEnv('SonarQube') {
+        //             sh 'mvn clean verify sonar:sonar'
+        //         }
+        //     }
+        // }
+
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Default Maven';
+            withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=devsecops-numeric-application"
             }
-        }
+    }
     }
     post{
         always{
