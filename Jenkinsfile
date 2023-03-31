@@ -45,8 +45,15 @@ pipeline{
                 echo "====++++executing Unit Test and Jacoco reports++++===="
                 script{
                     sh 'mvn test'
-                    junit '**/target/surfire-reports/*.xml'
-                    jacoco execPattern: '**/target/jacoco.exec'
+                }
+            }
+        }
+
+        stage("Static Code Analysis - SAST"){
+            steps{
+                echo "====++++executing Static Code Analysis - SAST++++===="
+                withSonarQubeEnv(credentialsId: 'sonar-token') {
+                    sh 'mvn clean verify sonar:sonar'
                 }
             }
         }
