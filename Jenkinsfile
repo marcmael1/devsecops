@@ -24,6 +24,21 @@ pipeline{
                 }
             }
         }
+
+        stage("Maven Build and ARchiving"){
+            steps{
+                echo "========executing Maven build========"
+                script{
+                    sh 'mvn clean install -DskipTests=true'
+                }
+            }
+            post{
+                success{
+                    echo "========Build executed successfully========"
+                    archiveArtifacts artifacts: "**/*.jar"
+                }
+            }
+        }
     }
     post{
         always{
