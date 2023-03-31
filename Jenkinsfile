@@ -1,5 +1,5 @@
 def COLOR_MAP = [
-    'SUCCESS': 'good'
+    'SUCCESS': 'good',
     'FAILURE': 'danger'
 ]
 
@@ -30,7 +30,7 @@ pipeline{
             echo "========Slack Notification========"
             slackSend channel: '#jenkinscicd', 
                         color: COLOR_MAP[currentBuild.currentResult], 
-                        message: "*${currentBuild.currentResult}:* Job $JOB_NAME Build $BUILD_ID \\n More infos at $BUILD_URL ", 
+                        message: "*${currentBuild.currentResult}:* Job $JOB_NAME Build $BUILD_ID \\n More infos at $BUILD_URL", 
                         teamDomain: 'devsecops-gyr2101', 
                         tokenCredentialId: 'slack-token'
         }
