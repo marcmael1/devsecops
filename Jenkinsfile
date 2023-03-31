@@ -90,6 +90,29 @@ pipeline{
                 }
             }
         }
+
+        stage('Nexus Artifact Upload'){
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'numeric', 
+                            classifier: '', 
+                            file: 'target/*.jar', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'nexus-cred', 
+                    groupId: 'com.devsecops', 
+                    nexusUrl: '54.82.223.91:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'devsecops-numeric-application-release', 
+                    version: '0.0.1'
+                }
+            }
+        }
     }
     post{
         always{
