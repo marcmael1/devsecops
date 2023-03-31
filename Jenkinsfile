@@ -40,21 +40,21 @@ pipeline{
             }
         }
 
-        // stage("Unit Test and Jacoco reports"){
-        //     steps{
-        //         echo "====++++executing Unit Test and Jacoco reports++++===="
-        //         script{
-        //             sh 'mvn test'
-        //         }
-        //     }
-        //     post{
-        //         always{
-        //             echo "====++++always++++===="
-        //             junit 'target/surfire-reports/*.xml'
-        //             jacoco execPattern: 'target/jacoco.exec'
-        //         }
-        //     }
-        // }
+        stage("Unit Test and Jacoco reports"){
+            steps{
+                echo "====++++executing Unit Test and Jacoco reports++++===="
+                script{
+                    sh 'mvn test'
+                }
+            }
+            post{
+                always{
+                    echo "====++++Publish reports++++===="
+                    junit 'target/surfire-reports/*.xml'
+                    jacoco execPattern: 'target/jacoco.exec'
+                }
+            }
+        }
     }
     post{
         always{
