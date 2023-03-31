@@ -57,6 +57,13 @@ pipeline{
                 }
             }
         }
+
+        stage("Quality Gates"){
+            steps{
+                echo "====++++executing Quality Gates++++===="
+                waitForQualityGate abortPipeline: true, credentialsId: 'slack-token'
+            }
+        }
     }
     post{
         always{
