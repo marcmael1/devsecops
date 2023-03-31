@@ -52,7 +52,7 @@ pipeline{
         stage("Static Code Analysis - SAST"){
             steps{
                 echo "====++++executing Static Code Analysis - SAST++++===="
-                withSonarQubeEnv(credentialsId: 'sonar-token') {
+                withSonarQubeEnv('SonarQube') {
                     sh 'mvn clean verify sonar:sonar'
                 }
             }
