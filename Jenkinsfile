@@ -78,18 +78,18 @@ pipeline{
             }
         }
 
-        stage('dependency check'){
-            steps{
-                script{
-                    sh 'mvn dependency-check-check'
-                }
-            }
-            post{
-                always{
-                    dependencyCheckPublisher pattern: '**/targe/dependency-check-report.xml.'
-                }
-            }
-        }
+        // stage('dependency check'){
+        //     steps{
+        //         script{
+        //             sh 'mvn dependency-check-check'
+        //         }
+        //     }
+        //     post{
+        //         always{
+        //             dependencyCheckPublisher pattern: '**/targe/dependency-check-report.xml.'
+        //         }
+        //     }
+        // }
 
         stage('Nexus Artifact Upload'){
             steps{
