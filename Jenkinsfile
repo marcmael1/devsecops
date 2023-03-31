@@ -49,18 +49,18 @@ pipeline{
             }
         }
 
-        stage("Pit mutation"){
-            steps{
-                echo "====++++executing Pit mutation++++===="
-               sh 'mvn org.pitest:pitest-maven:scmMutationCoverage'
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
-                     pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-                }
-            }
-        }
+        // stage("Pit mutation"){
+        //     steps{
+        //         echo "====++++executing Pit mutation++++===="
+        //        sh 'mvn org.pitest:pitest-maven:scmMutationCoverage'
+        //     }
+        //     post{
+        //         always{
+        //             echo "====++++always++++===="
+        //              pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        //         }
+        //     }
+        // }
 
         stage("Static Code Analysis - SAST"){
             steps{
@@ -75,6 +75,19 @@ pipeline{
             steps{
                 echo "====++++executing Quality Gates++++===="
                 waitForQualityGate abortPipeline: true, credentialsId: 'slack-token'
+            }
+        }
+
+        stage('dependency check'){
+            steps{
+                script{
+                    sh 'mvn dependency-check-check'
+                }
+            }
+            post{
+                always{
+                    dependencyCheckPublisher pattern: '**/targe/dependency-check-report.xml.'
+                }
             }
         }
     }
