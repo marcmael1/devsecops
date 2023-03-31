@@ -50,7 +50,7 @@ pipeline{
             post{
                 always{
                     echo "====++++always++++===="
-                    junit '**/surfire-reports/*.xml'
+                    junit '**/test-reports/*.xml'
                     jacoco execPattern: 'target/jacoco.exec'
                 }
             }
