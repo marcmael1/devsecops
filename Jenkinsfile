@@ -86,6 +86,21 @@ pipeline{
                 }
             }
         }
+
+        stage("DEPENDENCY CHECK-OWASP"){
+            steps{
+                echo "====++++executing DEPENDENCY CHECK-OWASP++++===="
+                script{
+                    sh 'mvn dependency-check:check'
+                }
+            }
+            post{
+                always{
+                    echo "====++++dEPENDENCY CHECK REPORTS++++===="
+                    dependencyCheckPublisher pattern: **/target/dependency-check-report.xml.
+                }
+            }
+        }
     }
     post{
         always{
