@@ -54,6 +54,21 @@ pipeline{
                 }
             }
         }
+
+        stage("MUTATION TEST - PIT MUTATION"){
+            steps{
+                echo "====++++executing MUTATION TEST - PIT MUTATION++++===="
+                script{
+                    sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+                }
+            }
+            post{
+                always{
+                    echo "====++++MUTATION REPORTS++++===="
+                    pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+                }
+            }
+        }
     }
     post{
         always{
