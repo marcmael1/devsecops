@@ -96,7 +96,7 @@ pipeline{
             }
             post{
                 always{
-                    echo "====++++dEPENDENCY CHECK REPORTS++++===="
+                    echo "====++++DEPENDENCY CHECK REPORTS++++===="
                     dependencyCheckPublisher pattern: '**/target/dependency-check-report.xml'
                 }
             }
