@@ -69,6 +69,29 @@ pipeline{
                 }
             }
         }
+
+        stage("SONARQUBE - SAST"){
+            steps{
+                echo "====++++executing SONARQUBE - SAST++++===="
+                script{
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                }
+                success{
+                    echo "====++++SONARQUBE - SAST executed successfully++++===="
+                }
+                failure{
+                    echo "====++++SONARQUBE - SAST execution failed++++===="
+                }
+        
+            }
+        }
     }
     post{
         always{
