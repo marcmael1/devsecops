@@ -38,6 +38,22 @@ pipeline{
                 }
             }
         }
+
+        stage("UNIT TEST & JACOCO"){
+            steps{
+                echo "====++++executing UNIT TEST & JACOCO++++===="
+                script{
+                    sh 'mvn test'
+                }
+            }
+            post{
+                always{
+                    echo "====++++JUNIT & JACOCO++++===="
+                    junit '**/target/surefire-reports/*.xml'
+                    jacoco execPattern: '**/target/*.exec'
+                }
+            }
+        }
     }
     post{
         always{
