@@ -81,15 +81,9 @@ pipeline{
             }
             post{
                 always{
-                    echo "====++++always++++===="
+                    echo "====++++Quality Gates++++===="
+                    waitForQualityGate abortPipeline: true
                 }
-                success{
-                    echo "====++++SONARQUBE - SAST executed successfully++++===="
-                }
-                failure{
-                    echo "====++++SONARQUBE - SAST execution failed++++===="
-                }
-        
             }
         }
     }
