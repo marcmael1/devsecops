@@ -7,11 +7,34 @@ pipeline{
     agent any
 
     stages{
+        stage('Clean Workspace'){
+            steps{
+                script{
+                    cleanWS()
+                }
+            }
+        }
         stage("CODE CHECKOUT"){
             steps{
                 echo "========executing CODE CHECKOUT========"
                 script{
                     checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/marcmael1/devsecops.git']])
+                }
+            }
+        }
+
+        stage("MAVEN BUILD"){
+            steps{
+                echo "====++++executing MAVEN BUILD++++===="
+                script{
+                    sh 'mvn clean install -DskipTests=true'
+                }
+            }
+            post{
+                success{
+                    echo "====++++MAVEN BUILD executed successfully++++===="
+                    echo "====++++Archiving Artifact++++===="
+                    archiveArtifacts artifacts: "target/*.jar"
                 }
             }
         }
