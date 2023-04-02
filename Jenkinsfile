@@ -96,7 +96,7 @@ pipeline{
                         [
                             artifactId: 'numeric', 
                             classifier: '', 
-                            file: 'numeric.jar', 
+                            file: '**/target/numeric.jar', 
                             type: 'jar'
                         ]
                     ], 
