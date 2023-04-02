@@ -92,7 +92,7 @@ pipeline{
                 echo "====++++executing Nexus artifact++++===="
                 script{
                     def readPomVersion = readMavenPom file: 'pom.xml'
-                        chooseRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "devsecops-numeric-app-snapshot" : "devsecops-numeric-app-release"
+                        chooseNexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "devsecops-numeric-app-snapshot" : "devsecops-numeric-app-release"
 
                    nexusArtifactUploader artifacts: 
                    [
@@ -108,7 +108,7 @@ pipeline{
                     nexusUrl: '3.83.149.207:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: chooseRepo, 
+                    repository: chooseNexusRepo, 
                     version: readPomVersion.version     
                 }
             }
