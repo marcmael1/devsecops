@@ -87,6 +87,30 @@ pipeline{
             }
         }
 
+        stage("Nexus artifact"){
+            steps{
+                echo "====++++executing Nexus artifact++++===="
+                script{
+                   nexusArtifactUploader artifacts: 
+                   [
+                        [
+                            artifactId: 'numeric', 
+                            classifier: '', 
+                            file: 'target/numeric.jar', 
+                            type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'nexus-cred', 
+                    groupId: 'com.devsecops', 
+                    nexusUrl: '3.83.149.207:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'devsecops-numeric-app-release', 
+                    version: '0.0.1'     
+                }
+            }
+        }
+
         stage("DEPENDENCY CHECK-OWASP"){
             steps{
                 echo "====++++executing DEPENDENCY CHECK-OWASP++++===="
