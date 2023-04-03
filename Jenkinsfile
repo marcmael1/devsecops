@@ -82,7 +82,9 @@ pipeline{
             post{
                 always{
                     echo "====++++Quality Gates++++===="
-                    waitForQualityGate abortPipeline: true
+                    timeout(time: 2, unit: "MINUTES"){
+                        waitForQualityGate abortPipeline: true
+                    }
                 }
             }
         }
@@ -142,6 +144,16 @@ pipeline{
             steps{
                 script{
                     sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
+                }
+            }
+        }
+
+        stage('DOCKER BUILD & TAG'){
+            steps{
+                script{
+                    sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:v1.$BUILD_ID'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:latest'
                 }
             }
         }
