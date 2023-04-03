@@ -157,6 +157,18 @@ pipeline{
                 }
             }
         }
+
+        stage('PUSH IMAGE TO DOCKERHUB'){
+            steps{
+                echo " ###### Pushing image to dockerhub #######"
+                script{
+                    withDockerRegistry(credentialsId: 'docker-cred') {
+                        sh 'docker push marcmael/$JOB_NAME:v1.$BUILD_ID'
+                        sh 'docker push marcmael/$JOB_NAME:latest'
+                    }
+                }
+            }
+        }
     }
     post{
         always{
