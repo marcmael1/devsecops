@@ -107,7 +107,7 @@ pipeline{
                     ], 
                     credentialsId: 'nexus-cred', 
                     groupId: 'com.devsecops', 
-                    nexusUrl: '3.83.149.207:8081', 
+                    nexusUrl: '184.73.115.0:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: chooseNexusRepo, 
