@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+
+    parameters{
+        choice(name: "action", choices: "create\ndelete", description: "create or delete configuration file on ")
+        string(name: "cluster", defaultValue: "numeric-cluster", description: "eks cluster name")
+        string(name: "region", defaultValue: "us-east-1", description: "aws region for eks cluster")
+    }
+
+    environment{
+        AWS_ACCESS_KEY_ID = credentials("aws_secret_key_id")
+        AWS_SECRET_ACCESS_KEY = credentials("aws_secret_access_key")
+    }
+
+    stages{
+        stage('CHECKOUT FROM VCS'){
+            steps{
+                script{
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/marcmael1/devsecops.git']])
+                }
+            }
+        }
+
+        stage('CONNECT TO CLUSTER'){
+            steps{
+                script{
+                    sh ("""
+                    aws configure set aws_secret_key_id "$AWS_ACCESS_KEY_ID"
+                    aws configure set aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+                    aws configure set region "${params.region}"
+                    aws eks --region ${parmas.region} update-kubeconfig --name ${params.cluster}
+                    """)
+                }
+            }
+        }
+    }
+}
