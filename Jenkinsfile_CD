@@ -39,7 +39,7 @@ pipeline{
                 script{ 
                     sh ("""
                     cat k8s_deployment_service.yaml
-                    sed -i 's/replace/marcmael/$JOB_NAME:v1.$BUILD_ID'}/g' k8s_deployment_service.yaml
+                    sed -i 's/replace/marcmael/$JOB_NAME:v1.$BUILD_ID/g' k8s_deployment_service.yaml
                     cat k8s_deployment_service.yaml
                     """)  
                     
