@@ -33,5 +33,16 @@ pipeline{
                 }
             }
         }
+
+        stage('K8S DEPLOYMENT - DEV'){
+            steps{
+                script{
+                    withKubeConfig([credentialsId: 'kubeconfig']){
+                        sh "sed -i 's#replace#marcmael/$JOB_NAME:v1.$BUILD_ID'}#g' k8s_deployment_service.yaml"
+                        sh "kubectl apply -f k8s_deployment_service.yaml"  
+                    }
+                }
+            }
+        }
     }
 }
