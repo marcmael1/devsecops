@@ -34,7 +34,7 @@ pipeline{
             }
         }
 
-        stage('K8S DEPLOYMENT - DEV'){
+        stage('updating k8s deployment file - DEV'){
             steps{
                 script{ 
                     sh ("""
@@ -43,6 +43,22 @@ pipeline{
                     cat k8s_deployment_service.yaml
                     """)  
                     
+                }
+            }
+        }
+
+        stage('Push the new update deployment file to github'){
+            steps{
+                script{
+                    sh """
+                    git config --global user.name "marcmael"
+                    git config --global user.email "simslemaestro@gmail.com"
+                    git add k8s_deployment_service.yaml
+                    git commit -m "update deployment file to github"
+                    """
+                    withCredentials([string(credentialsId: 'github-token', variable: '')]) {
+                        git push "https://github.com/marcmael1/devsecops.git" main
+                    }
                 }
             }
         }
