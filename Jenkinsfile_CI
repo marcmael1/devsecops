@@ -169,6 +169,35 @@ pipeline{
                 }
             }
         }
+
+        stage('updating k8s deployment file - DEV'){
+            steps{
+                script{ 
+                    sh ("""
+                    cat k8s_deployment_service.yaml
+                    sed -i 's#replace#marcmael/$JOB_NAME:v1.$BUILD_ID#g' k8s_deployment_service.yaml
+                    cat k8s_deployment_service.yaml
+                    """)  
+                    
+                }
+            }
+        }
+
+        stage('Push the new update deployment file to github'){
+            steps{
+                script{
+                    sh ("""
+                    git config --global user.name "marcmael1"
+                    git config --global user.email "marctchouanche@gmail.com"
+                    git add k8s_deployment_service.yaml
+                    git commit -m "update deployment file to github"
+                    """)
+                    withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                        sh 'git push https://github.com/marcmael1/devsecops.git main'
+                    }
+                }
+            }
+        }
     }
     post{
         always{
