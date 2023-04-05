@@ -56,7 +56,7 @@ pipeline{
                     git add k8s_deployment_service.yaml
                     git commit -m "update deployment file to github"
                     """
-                    withCredentials([string(credentialsId: 'github-token', variable: '')]) {
+                    withCredentials([string(credentialsId: 'github-token')]) {
                         sh 'git push "https://github.com/marcmael1/devsecops.git" main'
                     }
                 }
