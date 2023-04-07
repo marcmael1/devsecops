@@ -107,7 +107,7 @@ pipeline{
                     ], 
                     credentialsId: 'nexus-cred', 
                     groupId: 'com.devsecops', 
-                    nexusUrl: '184.73.115.0:8081', 
+                    nexusUrl: '44.201.138.46:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: chooseNexusRepo, 
@@ -140,7 +140,7 @@ pipeline{
             }
         }
 
-        stage('OPA CONFTEST'){
+        stage('OPA CONFTEST - SCAN DOCKERFILE'){
             steps{
                 script{
                     sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
@@ -177,8 +177,7 @@ pipeline{
                     cat k8s_deployment_service.yaml
                     sed -i 's#replace#marcmael/$JOB_NAME:v1.$BUILD_ID#g' k8s_deployment_service.yaml
                     cat k8s_deployment_service.yaml
-                    """)  
-                    
+                    """)
                 }
             }
         }
