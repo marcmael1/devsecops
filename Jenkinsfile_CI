@@ -82,7 +82,7 @@ pipeline{
             post{
                 always{
                     echo "====++++Quality Gates++++===="
-                    timeout(time: 10, unit: "MINUTES"){
+                    timeout(time: 2, unit: "MINUTES"){
                         waitForQualityGate abortPipeline: true
                     }
                 }
@@ -107,7 +107,7 @@ pipeline{
                     ], 
                     credentialsId: 'nexus-cred', 
                     groupId: 'com.devsecops', 
-                    nexusUrl: '44.201.138.46:8081', 
+                    nexusUrl: '172.31.21.201:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: chooseNexusRepo, 
@@ -172,6 +172,7 @@ pipeline{
 
         stage('updating k8s deployment file - DEV'){
             steps{
+                echo "updating k8s deployment file"
                 script{ 
                     sh ("""
                     cat k8s_deployment_service.yaml
@@ -204,7 +205,7 @@ pipeline{
             slackSend channel: '#jenkinscicd', 
                         color: COLOR_MAP[currentBuild.currentResult], 
                         message: "*${currentBuild.currentResult}:* Job $JOB_NAME Build $BUILD_ID \\n More info at $BUILD_URL", 
-                        teamDomain: 'devsecops-gyr2101', 
+                        teamDomain: 'devsecops-dsy4099', 
                         tokenCredentialId: 'slack-token'
         }
     }
