@@ -162,7 +162,7 @@ pipeline{
             steps{
                 echo " ###### Pushing image to dockerhub #######"
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred') {
+                    withDockerRegistry(credentialsId: 'dockerhub-cred') {
                         sh 'docker push marcmael/$JOB_NAME:v1.$BUILD_ID'
                         sh 'docker push marcmael/$JOB_NAME:latest'
                     }
