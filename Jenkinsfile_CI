@@ -185,22 +185,23 @@ pipeline{
             }
         }
 
-        // stage('Push the new update deployment file to github'){
-        //     steps{
-        //         echo "###### Push the new update deployment file to github #########"
-        //         script{
-        //             withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
-        //                 sh ("""
-        //                 git config --global user.name "marcmael1"
-        //                 git config --global user.email "marctchouanche@gmail.com"
-        //                 git add k8s_deployment_service.yaml
-        //                 git commit -m "update deployment file to github"
-        //                 git push -u origin main
-        //                 """)
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Push the new update deployment file to github'){
+            steps{
+                echo "###### Push the new update deployment file to github #########"
+                script{
+                    withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                        sh ("""
+                        cd /workspace/devsecops-numeric-app_ci
+                        git config --global user.name "marcmael1"
+                        git config --global user.email "marctchouanche@gmail.com"
+                        git add k8s_deployment_service.yaml
+                        git commit -m "update deployment file to github"
+                        git push https://github.com/marcmael1/devsecops.git main
+                        """)
+                    }
+                }
+            }
+        }
     }
     post{
         always{
