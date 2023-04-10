@@ -150,6 +150,7 @@ pipeline{
 
         stage('DOCKER BUILD & TAG'){
             steps{
+                echo "DOCKER BUILD & TAG"
                 script{
                     sh 'sudo docker image build -t $JOB_NAME:v1.$BUILD_ID .'
                     sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:v1.$BUILD_ID'
@@ -185,7 +186,7 @@ pipeline{
 
         stage('Push the new update deployment file to github'){
             steps{
-                echo "Push the new update deployment file to github"
+                echo "###### Push the new update deployment file to github #########"
                 script{
                     sh ("""
                     git config --global user.name "marcmael1"
