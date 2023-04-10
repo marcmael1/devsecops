@@ -192,11 +192,12 @@ pipeline{
                     withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
                         sh ("""
                         cd /workspace/devsecops-numeric-app_ci
+                        git branch -a
                         git config --global user.name "marcmael1"
                         git config --global user.email "marctchouanche@gmail.com"
                         git add k8s_deployment_service.yaml
                         git commit -m "update deployment file to github"
-                        git push https://github.com/marcmael1/devsecops.git main
+                        git push https://github.com/marcmael1/devsecops.git dev
                         """)
                     }
                 }
