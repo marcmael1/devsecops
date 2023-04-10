@@ -185,6 +185,7 @@ pipeline{
 
         stage('Push the new update deployment file to github'){
             steps{
+                echo "Push the new update deployment file to github"
                 script{
                     sh ("""
                     git config --global user.name "marcmael1"
