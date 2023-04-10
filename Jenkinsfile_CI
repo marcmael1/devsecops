@@ -195,7 +195,7 @@ pipeline{
                     git commit -m "update deployment file to github"
                     """)
                     withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
-                        sh 'git push https://github.com/marcmael1/devsecops.git main'
+                        sh 'git push -u origin main'
                     }
                 }
             }
