@@ -69,15 +69,40 @@ mvn -v
 
 
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt update
 sudo apt install -y jenkins
+sudo jenkins --version
 systemctl daemon-reload
 systemctl enable jenkins
 sudo systemctl start jenkins
 #sudo systemctl status jenkins
 sudo usermod -a -G docker jenkins
 echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+
+echo ".........----------------#################._.-.-AWS CLI-.-._.#################----------------........."
+sudo apt install awscli -y
+aws --version
+
+echo ".........----------------#################._.-.-Terraform-.-._.#################----------------........."
+sudo mkdir -p /opt/terraform
+cd /opt/terraform
+sudo wget https://releases.hashicorp.com/terraform/1.4.4/terraform_1.4.4_linux_386.zip
+sudo apt-get install unzip -y
+sudo unzip terraform_1.4.4_linux_386.zip
+sudo mv /opt/terraform/terraform /usr/bin/
+terraform -version
+
+echo ".........----------------#################._.-.-eksctl-.-._.#################----------------........."
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+
 
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
