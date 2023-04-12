@@ -3,13 +3,13 @@ def COLOR_MAP = [
     'FAILURE': 'danger'
 ]
 
-environment{
-    APP_NAME = "devsecops-numeric-app"
-    TAG_NAME = "${BUILD_NUMBER}"
-}
-
 pipeline{
     agent any
+
+    environment{
+    APP_NAME = "devsecops-numeric-app"
+    TAG_NAME = "${BUILD_NUMBER}"
+    }
 
     stages{
         stage('Clean Workspace'){
