@@ -59,13 +59,11 @@ kubectl taint node $(kubectl get nodes -o=jsonpath='{.items[].metadata.name}')  
 kubectl get node -o wide
 
 
-
 echo ".........----------------#################._.-.-Java and MAVEN-.-._.#################----------------........."
 sudo apt install default-jdk -y
 java -version
 sudo apt install -y maven
 mvn -v
-
 
 
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
@@ -89,6 +87,7 @@ echo ".........----------------#################._.-.-AWS CLI-.-._.#############
 sudo apt install awscli -y
 aws --version
 
+
 echo ".........----------------#################._.-.-Terraform-.-._.#################----------------........."
 sudo mkdir -p /opt/terraform
 cd /opt/terraform
@@ -98,11 +97,18 @@ sudo unzip terraform_1.4.4_linux_386.zip
 sudo mv /opt/terraform/terraform /usr/bin/
 terraform -version
 
+
 echo ".........----------------#################._.-.-eksctl-.-._.#################----------------........."
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
+
+echo ".........----------------#################._.-.-clone devsecops repo-.-._.#################----------------........."
+sudo -i
+git clone https://github.com/marcmael1/devsecops.git
+cd /devsecops/setup/vm-install-script
+bash install-script.sh
 
 
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
