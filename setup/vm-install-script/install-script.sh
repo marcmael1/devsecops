@@ -102,13 +102,4 @@ echo ".........----------------#################._.-.-eksctl-.-._.##############
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
-
-
-echo ".........----------------#################._.-.-clone devsecops repo-.-._.#################----------------........."
-sudo -i
-git clone https://github.com/marcmael1/devsecops.git
-cd /devsecops/setup/vm-install-script
-bash install-script.sh
-
-
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
