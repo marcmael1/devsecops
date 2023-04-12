@@ -3,6 +3,11 @@ def COLOR_MAP = [
     'FAILURE': 'danger'
 ]
 
+environment{
+    APP_NAME = "devsecops-numeric-app"
+    TAG_NAME = "${BUILD_NUMBER}"
+}
+
 pipeline{
     agent any
 
@@ -177,7 +182,8 @@ pipeline{
                 script{ 
                     sh ("""
                     cat k8s_deployment_service.yaml
-                    sed -i 's#replace#marcmael/$JOB_NAME:v1.$BUILD_ID#g' k8s_deployment_service.yaml
+                    sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' k8s_deployment_service.yaml
+                    // sed -i 's#replace#marcmael/$JOB_NAME:v1.$BUILD_ID#g' k8s_deployment_service.yaml
                     cat k8s_deployment_service.yaml
                     pwd k8s_deployment_service.yaml
                     """)
