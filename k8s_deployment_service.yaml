@@ -20,7 +20,7 @@ spec:
         emptyDir: {}
       serviceAccountName: default
       containers:
-      - image: replace
+      - image: marcmael/devsecops-numeric-app_ci:v1.28
         name: devsecops-container
         volumeMounts:
         - mountPath: /tmp
