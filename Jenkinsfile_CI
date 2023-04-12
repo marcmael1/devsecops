@@ -193,9 +193,10 @@ pipeline{
                         sh ("""
                         git config --global user.name "marcmael1"
                         git config --global user.email "marctchouanche@gmail.com"
+                        git pull --rebase main
                         git add k8s_deployment_service.yaml
                         git commit -m "update deployment file to github"
-                        git push https://github.com/marcmael1/devsecops.git dev
+                        git push https://github.com/marcmael1/devsecops.git main
                         """)
                     }
                 }
