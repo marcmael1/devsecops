@@ -207,6 +207,7 @@ pipeline{
                         git checkout -b feature
                         git checkout main
                         git merge feature
+                        git pull https://github.com/marcmael1/devsecops-CD.git main
                         git push https://github.com/marcmael1/devsecops-CD.git main
                         """)
                     }
