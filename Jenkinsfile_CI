@@ -210,7 +210,8 @@ pipeline{
 
                     """)
                     withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
-                    sh "git push https://github.com/marcmael1/devsecops-CD.git main"
+                        sh "git pull https://github.com/marcmael1/devsecops-CD.git main"
+                        sh "git push https://github.com/marcmael1/devsecops-CD.git main"
                         
                     }
                 }
