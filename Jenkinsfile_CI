@@ -202,7 +202,9 @@ pipeline{
                         git config --global user.email "marctchouanche@gmail.com"
                         git add k8s_deployment_service.yaml
                         git commit -m "update deployment file to github"
-                        git merge origin/main
+                        git checkout -b feature
+                        git checkout main
+                        git merge feature
                         git push https://github.com/marcmael1/devsecops.git main
                         """)
                     }
