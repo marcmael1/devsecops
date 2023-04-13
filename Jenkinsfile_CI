@@ -184,7 +184,6 @@ pipeline{
                     cat k8s_deployment_service.yaml
                     sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' k8s_deployment_service.yaml
                     cat k8s_deployment_service.yaml
-                    pwd k8s_deployment_service.yaml
                     """)
                 }
             }
@@ -203,6 +202,7 @@ pipeline{
                         sh ("""
                         git config --global user.name "marcmael1"
                         git config --global user.email "marctchouanche@gmail.com"
+                        git pull https://github.com/marcmael1/devsecops-CD.git main
                         git add k8s_deployment_service.yaml
                         git commit -m "update deployment file to github"
                         git push https://github.com/marcmael1/devsecops-CD.git main
